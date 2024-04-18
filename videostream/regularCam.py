@@ -20,7 +20,6 @@ pi_cam.preview_configuration.align()
 pi_cam.configure("preview")
 pi_cam.start()
 
-fps = 0
 # FPS text configuration
 FPS_POSITION = (30,60)
 FPS_FONT = cv2.FONT_HERSHEY_SIMPLEX
@@ -30,12 +29,19 @@ FPS_WEIGHT = 3
 # ----------------------------------------------------------------------
 
 def video_stream():
+    fps = 0
     while True:
+        start_time = time.time()
+        
         frame = pi_cam.capture_array()
         cv2.putText(frame, str(int(fps))+' FPS', FPS_POSITION, FPS_FONT, FPS_HEIGHT, FPS_COLOR, FPS_WEIGHT)
         ret, buffer = cv2.imencode('.jpeg', frame)
         frame = buffer.tobytes()
         yield (b' --frame\r\n' b'Content-type: imgae/jpeg\r\n\r\n' + frame +b'\r\n')
+        
+        end_time = time.time()
+        time_elapsed = end_time - start_time
+        fps = 0.9*fps + 0.1*(1/time_elapsed)
         
 @app.route('/camera')
 def camera():

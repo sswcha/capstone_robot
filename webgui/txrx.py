@@ -9,11 +9,17 @@ import sys
 import time     # Import the sleep function from the time module
 import socket
 import RPi.GPIO as GPIO
+import serial
 
+# Set up serial connection with arduino
+ser = serial.Serial('/dev/ttyACM0', 115200, timeout=1.0)
+time.sleep(3)
+ser.reset_input_buffer()
+print("Serial connected to Arduino")
 
+# Tx & Rx IP addresses and ports
 UDP_TX_IP = "127.0.0.1"
 UDP_TX_PORT = 3000
-
 UDP_RX_IP = "127.0.0.1"
 UDP_RX_PORT = 3001
 
@@ -66,11 +72,14 @@ def one():
                
 def two():
      while True:
+          time.sleep(0.001)
           data, addr = sockRX.recvfrom(1024) # buffer size is 1024 bytes
           JsonStr = data.decode('utf_8')
           print(JsonStr)
           if (JsonStr.find('{"NewClient":1}') != -1):
-               newclient()     
+               newclient()
+          elif (JsonStr.find('{"ArrowUp":1}') != -1):
+               ser.write("Hello from rpi\n".encode('utf-8'))
           elif (JsonStr.find('{"GPIO26T":1}') != -1):
                if GPIO.input(26):
                   GPIO.output(26,GPIO.LOW)
@@ -133,7 +142,13 @@ p2.start()
 
 
 #If you leave leave following the code out, Ctrl-C to terminate the program may not work.
-while True:  
-     # Run your main code here.  
-     time.sleep(10)
+ 
+     # Run your main code here.
+try:
+    while True:
+        time.sleep(10)
+except KeyboardInterrupt:
+    print("Closed serial comm with arduino")
+    ser.close()
+         
 
