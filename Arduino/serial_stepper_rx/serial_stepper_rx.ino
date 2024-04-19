@@ -39,7 +39,6 @@ void setup() {
     while (!Serial) {  
     }
     Serial.println("Serial initialized");
-    Serial.println(stepper1._is_stopped);
 }
 
 
@@ -51,18 +50,15 @@ void loop() {
         Serial.println(msg_rx);
     }
     
-    if (cur_micros < 3000000) {
-        stepper1.goForward(cur_micros);
-    } else {
-        stepper1.decelerate(cur_micros);
-    }
     // command: up (U), down (D), left (L), right (R), stop (S)
     if (msg_rx == "U") {
         // accel L
+        stepper1.goForward(cur_micros);
         // accel R
         
     } else if (msg_rx == "D"){
         // decel L
+        stepper1.goBackward(cur_micros);
         // decel R
     } else if (msg_rx == "L") {
         // accel L
@@ -72,6 +68,7 @@ void loop() {
         // accel R
     } else if (msg_rx == "S"){
         // both motors go to zero
+        stepper1.decelerate(cur_micros);
     }
 
     //delay(500);

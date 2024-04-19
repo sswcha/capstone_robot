@@ -24,7 +24,7 @@ public:
 
 //public:
     Stepper() {}
-    Stepper(int step_pin, int dir_pin, int min_delay=600, int max_delay=6000, boolean forward_dir=1);
+    Stepper(int step_pin, int dir_pin, int min_delay=600, int max_delay=5000, boolean forward_dir=1);
 
     void oneStep();
     void goForward(unsigned long cur_micros);

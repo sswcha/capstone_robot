@@ -4,7 +4,7 @@
 #include "Stepper.h"
 
 // contructor
-Stepper::Stepper(int step_pin, int dir_pin, int min_delay=600, int max_delay=6000, boolean forward_dir=1) : 
+Stepper::Stepper(int step_pin, int dir_pin, int min_delay=600, int max_delay=5000, boolean forward_dir=1) : 
         _step_pin(step_pin), _dir_pin(dir_pin), _min_delay(min_delay), _max_delay(max_delay), _forward_dir(forward_dir) {
     pinModeFast(_step_pin, OUTPUT);
     pinModeFast(_dir_pin, OUTPUT);
@@ -12,9 +12,9 @@ Stepper::Stepper(int step_pin, int dir_pin, int min_delay=600, int max_delay=600
 
     _last_micros = 0;
     _is_stopped = true;
-    _delay_micros = 6000;
+    _delay_micros = 5000;
     _delay_increment = 10;
-    _cur_dir = 1;
+    _cur_dir = _forward_dir;
 }
 
 void Stepper::oneStep() {
@@ -24,14 +24,24 @@ void Stepper::oneStep() {
 
 void Stepper::goForward(unsigned long cur_micros) {
     if (_cur_dir != _forward_dir) {
-            
+        this->decelerate(cur_micros);
+        if (_is_stopped == true) {
+            this->switchDirection();
+        }
     }
     _is_stopped = false;
     this->accelerate(cur_micros);
 }
 
 void Stepper::goBackward(unsigned long cur_micros) {
-
+    if (_cur_dir == _forward_dir) {
+        this->decelerate(cur_micros);
+        if (_is_stopped == true) {
+            this->switchDirection();
+        }
+    }
+    _is_stopped = false;
+    this->accelerate(cur_micros);
 }
 
 void Stepper::stopSpeed(unsigned long cur_micros) {
