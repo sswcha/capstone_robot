@@ -55,7 +55,7 @@ def video_stream():
 	print("MLX addr found")
 	print([hex(i) for i in mlx.serial_number])
 
-	mlx.refresh_rate = adafruit_mlx90640.RefreshRate.REFRESH_4_HZ
+	mlx.refresh_rate = adafruit_mlx90640.RefreshRate.REFRESH_2_HZ
 
 	#frame = [0] * 768 # 32 x 24 pixels
 	frame = np.zeros(768)
