@@ -15,7 +15,7 @@ unsigned long cur_micros;
 // Motor 1 (left drive)
 unsigned long last_micros_1 = 0;
 unsigned long delay_micros_1 = 6000;
-unsigned long delay_increment_1 = 20;
+unsigned long delay_increment_1 = 26;
 boolean is_stopped_1 = true;
 // Motor 2 (right drive)
 // Motor 3 (yaw)
