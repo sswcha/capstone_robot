@@ -88,6 +88,15 @@ def two():
                ser.write("R\n".encode('utf-8'))
           elif (JsonStr.find('{"ArrowLifted":0}') != -1):
                ser.write("S\n".encode('utf-8'))
+          # added to test:
+          elif (JsonStr.find('{"ArrowUp":0}') != -1):
+               ser.write("S\n".encode('utf-8'))
+          elif (JsonStr.find('{"ArrowDown":0}') != -1):
+               ser.write("S\n".encode('utf-8'))
+          elif (JsonStr.find('{"ArrowLeft":0}') != -1):
+               ser.write("S\n".encode('utf-8'))
+          elif (JsonStr.find('{"ArrowRight":0}') != -1):
+               ser.write("S\n".encode('utf-8'))
 
 
 

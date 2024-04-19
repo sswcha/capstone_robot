@@ -62,7 +62,6 @@ function ReportTouchEnd(e) {
 		socket.emit('msg','{"'+e.target.id+'":0}');	
 		document.getElementById("DebugData").innerHTML = '{"'+e.target.id+'":0}';
 	}
-	
 }
 
 function ReportTouchMove(e) {
@@ -131,7 +130,7 @@ function ReportKeyUp(e) {
     case "ArrowLeft":
     case "ArrowRight":
       socket.emit('msg','{"ArrowLifted":0}');
-      document.getElementById("DebugData").innerHTML = '{"ArrowRight":0}';
+      document.getElementById("DebugData").innerHTML = '{"ArrowLifted":0}';
       break;
     default:
       break;
