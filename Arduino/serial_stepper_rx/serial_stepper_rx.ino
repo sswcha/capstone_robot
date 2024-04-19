@@ -1,4 +1,5 @@
 #include <digitalWriteFast.h>
+#include <Keyboard.h>
 #include "Stepper.h"
 
 // This script receives commands from the Rasp-pi txrx.py script and then sends pulse signals to the stepper motor drivers
@@ -47,15 +48,26 @@ void loop() {
     
     if (Serial.available() > 0) {
         msg_rx = Serial.readStringUntil('\n');
-        Serial.println(msg_rx);
+        //Serial.println(msg_rx);
     }
+    /*
+    if (cur_micros < 2000000) {
+        stepper1.goForward(cur_micros);
+    }
+    
+    if (cur_micros > 2000000 && cur_micros < 5000000) {
+        stepper1.goBackward(cur_micros);
+    } else if (cur_micros > 5000000){
+        stepper1.goForward(cur_micros);
+    }*/
+
+    
     
     // command: up (U), down (D), left (L), right (R), stop (S)
     if (msg_rx == "U") {
         // accel L
         stepper1.goForward(cur_micros);
         // accel R
-        
     } else if (msg_rx == "D"){
         // decel L
         stepper1.goBackward(cur_micros);
@@ -66,7 +78,7 @@ void loop() {
     } else if (msg_rx == "R") {
         // decel L
         // accel R
-    } else if (msg_rx == "S"){
+    } else{
         // both motors go to zero
         stepper1.decelerate(cur_micros);
     }

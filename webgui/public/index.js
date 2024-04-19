@@ -127,19 +127,10 @@ function ReportKeyUp(e) {
   if (arrowPressed == true) {
     switch (key) {
     case "ArrowUp":
-      socket.emit('msg','{"ArrowUp":0}');
-      document.getElementById("DebugData").innerHTML = '{"ArrowUp":0}';
-      break;
     case "ArrowDown":
-      socket.emit('msg','{"ArrowDown":0}');
-      document.getElementById("DebugData").innerHTML = '{"ArrowDown":0}';
-      break;
     case "ArrowLeft":
-      socket.emit('msg','{"ArrowLeft":0}');
-      document.getElementById("DebugData").innerHTML = '{"ArrowLeft":0}';
-      break;
     case "ArrowRight":
-      socket.emit('msg','{"ArrowRight":0}');
+      socket.emit('msg','{"ArrowLifted":0}');
       document.getElementById("DebugData").innerHTML = '{"ArrowRight":0}';
       break;
     default:

@@ -12,8 +12,8 @@ Stepper::Stepper(int step_pin, int dir_pin, int min_delay=600, int max_delay=500
 
     _last_micros = 0;
     _is_stopped = true;
-    _delay_micros = 5000;
-    _delay_increment = 10;
+    _delay_micros = 3500;
+    _delay_increment = 25;
     _cur_dir = _forward_dir;
 }
 

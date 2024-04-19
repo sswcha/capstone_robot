@@ -79,59 +79,17 @@ def two():
           if (JsonStr.find('{"NewClient":1}') != -1):
                newclient()
           elif (JsonStr.find('{"ArrowUp":1}') != -1):
-               ser.write("Hello from rpi\n".encode('utf-8'))
-          elif (JsonStr.find('{"GPIO26T":1}') != -1):
-               if GPIO.input(26):
-                  GPIO.output(26,GPIO.LOW)
-                  sockTX.sendto(bytes('{"GPIO26T":0}', "utf-8"), (UDP_TX_IP, UDP_TX_PORT))
-               else:
-                  GPIO.output(26,GPIO.HIGH)  
-                  sockTX.sendto(bytes('{"GPIO26T":1}', "utf-8"), (UDP_TX_IP, UDP_TX_PORT))
-          elif (JsonStr.find('{"GPIO20T":1}') != -1):
-               if GPIO.input(20):
-                  GPIO.output(20,GPIO.LOW)
-                  sockTX.sendto(bytes('{"GPIO20T":0}', "utf-8"), (UDP_TX_IP, UDP_TX_PORT))
-               else:
-                  GPIO.output(20,GPIO.HIGH)  
-                  sockTX.sendto(bytes('{"GPIO20T":1}', "utf-8"), (UDP_TX_IP, UDP_TX_PORT))
-          elif (JsonStr.find('{"GPIO21T":1}') != -1):
-               if GPIO.input(21):
-                  GPIO.output(21,GPIO.LOW)
-                  sockTX.sendto(bytes('{"GPIO21T":0}', "utf-8"), (UDP_TX_IP, UDP_TX_PORT))
-               else:
-                  GPIO.output(21,GPIO.HIGH)  
-                  sockTX.sendto(bytes('{"GPIO21T":1}', "utf-8"), (UDP_TX_IP, UDP_TX_PORT))
-          elif (JsonStr.find('{"GPIO16T":1}') != -1):
-               if GPIO.input(16):
-                  GPIO.output(16,GPIO.LOW)
-                  sockTX.sendto(bytes('{"GPIO16T":0}', "utf-8"), (UDP_TX_IP, UDP_TX_PORT))
-               else:
-                  GPIO.output(16,GPIO.HIGH)  
-                  sockTX.sendto(bytes('{"GPIO16T":1}', "utf-8"), (UDP_TX_IP, UDP_TX_PORT))
-          elif (JsonStr.find('{"GPIO26M":1}') != -1):
-                  sockTX.sendto(bytes('{"GPIO26T":1}', "utf-8"), (UDP_TX_IP, UDP_TX_PORT))
-                  GPIO.output(26,GPIO.HIGH)  
-          elif (JsonStr.find('{"GPIO20M":1}') != -1):
-                  sockTX.sendto(bytes('{"GPIO20T":1}', "utf-8"), (UDP_TX_IP, UDP_TX_PORT))
-                  GPIO.output(20,GPIO.HIGH)  
-          elif (JsonStr.find('{"GPIO21M":1}') != -1):
-                  sockTX.sendto(bytes('{"GPIO21T":1}', "utf-8"), (UDP_TX_IP, UDP_TX_PORT))
-                  GPIO.output(21,GPIO.HIGH)  
-          elif (JsonStr.find('{"GPIO16M":1}') != -1):
-                  sockTX.sendto(bytes('{"GPIO16T":1}', "utf-8"), (UDP_TX_IP, UDP_TX_PORT))
-                  GPIO.output(16,GPIO.HIGH)  
-          elif (JsonStr.find('{"GPIO26M":0}') != -1):
-                  sockTX.sendto(bytes('{"GPIO26T":0}', "utf-8"), (UDP_TX_IP, UDP_TX_PORT))
-                  GPIO.output(26,GPIO.LOW)  
-          elif (JsonStr.find('{"GPIO20M":0}') != -1):
-                  sockTX.sendto(bytes('{"GPIO20T":0}', "utf-8"), (UDP_TX_IP, UDP_TX_PORT))
-                  GPIO.output(20,GPIO.LOW)  
-          elif (JsonStr.find('{"GPIO21M":0}') != -1):
-                  sockTX.sendto(bytes('{"GPIO21T":0}', "utf-8"), (UDP_TX_IP, UDP_TX_PORT))
-                  GPIO.output(21,GPIO.LOW)  
-          elif (JsonStr.find('{"GPIO16M":0}') != -1):
-                  sockTX.sendto(bytes('{"GPIO16T":0}', "utf-8"), (UDP_TX_IP, UDP_TX_PORT))
-                  GPIO.output(16,GPIO.LOW)  
+               ser.write("U\n".encode('utf-8'))
+          elif (JsonStr.find('{"ArrowDown":1}') != -1):
+               ser.write("D\n".encode('utf-8'))
+          elif (JsonStr.find('{"ArrowLeft":1}') != -1):
+               ser.write("L\n".encode('utf-8'))
+          elif (JsonStr.find('{"ArrowRight":1}') != -1):
+               ser.write("R\n".encode('utf-8'))
+          elif (JsonStr.find('{"ArrowLifted":0}') != -1):
+               ser.write("S\n".encode('utf-8'))
+
+
 
 newclient()
 p1 = Thread(target = one)
