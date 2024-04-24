@@ -1,12 +1,15 @@
 #include <digitalWriteFast.h>
-#include <Keyboard.h>
 #include "Stepper.h"
 
 // This script receives commands from the Rasp-pi txrx.py script and then sends pulse signals to the stepper motor drivers
 
 // GPIO CONFIGURATION----------------
+// Left drive motor
 const int STEP1 = 6;
 const int DIR1 = 5;
+// Right drive motor
+const int STEP2 = 8;
+const int DIR2 = 7;
 
 // VARIABLE CONSTANTS----------------
 // General
@@ -28,7 +31,8 @@ const unsigned long MAX_DELAY = 6000; // Slowest speed
 
 //Stepper::Stepper(int step_pin, int dir_pin, int min_delay=600, int max_delay=6000, boolean starting_dir=1)
 
-Stepper stepper1 = Stepper(6, 5);
+Stepper stepper1 = Stepper(STEP1, DIR1);
+Stepper stepper2 = Stepper(STEP2, DIR2);
 
 void setup() {
   // put your setup code here, to run once:
@@ -67,38 +71,31 @@ void loop() {
     if (msg_rx == "U") {
         // accel L
         stepper1.goForward(cur_micros);
+        stepper2.goForward(cur_micros);
         // accel R
     } else if (msg_rx == "D"){
         // decel L
         stepper1.goBackward(cur_micros);
+        stepper2.gobackward(cur_micros);
         // decel R
     } else if (msg_rx == "L") {
         // accel L
+        stepper1.goForward(cur_micros);
         // decel R
+        stepper2.goBackward(cur_micros);
     } else if (msg_rx == "R") {
         // decel L
+        stepper1.goBackward(cur_micros);
         // accel R
+        stepper2.goForward(cur_micros);
     } else{
         // both motors go to zero
         stepper1.decelerate(cur_micros);
+        stepper2.decelerate(cur_micros);
     }
 
     //delay(500);
 }
-
-
-void goForward(int step_pin, int dir_pin, unsigned long min_delay, unsigned long &delay_micros, unsigned long &last_micros, unsigned long &delay_increment) {
-
-}
-
-void goBackward() {
-
-}
-
-void stopMotor() {
-    
-}
-
 
 /* sending to rpi
 void loop() {
